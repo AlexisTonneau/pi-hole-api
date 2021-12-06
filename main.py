@@ -2,15 +2,15 @@ import os
 
 import uvicorn as uvicorn
 from fastapi import FastAPI, HTTPException
-import pihole_api as pi
+from pihole import Pihole
 import validators
 
 
-pihole = pi.Pihole(os.environ["PI_URL"], os.environ["PI_PSW"])
+pihole = Pihole(os.environ["PI_URL"], os.environ["PI_PSW"])
 app = FastAPI()
 
 
-@app.post("/whitelist")
+@app.get("/whitelist")
 def add_to_whitelist(domain: str):
     if validators.domain(domain):
         pihole.add_domain("white", domain, "")
@@ -19,5 +19,5 @@ def add_to_whitelist(domain: str):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=os.getenv('PORT') or 9000)
+    uvicorn.run(app, host="localhost", port=os.getenv('PORT') or 9001)
 
