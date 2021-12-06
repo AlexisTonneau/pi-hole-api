@@ -5,8 +5,10 @@ from fastapi import FastAPI, HTTPException
 from pihole import Pihole
 import validators
 
-
-pihole = Pihole(os.environ["PI_URL"], os.environ["PI_PSW"])
+if os.getenv('DEBUG') != 'True':
+    pihole = Pihole(os.environ["PI_URL"], os.environ["PI_PSW"])
+else:
+    pihole = None
 app = FastAPI()
 
 
