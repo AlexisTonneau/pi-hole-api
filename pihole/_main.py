@@ -100,6 +100,18 @@ class Pihole:
         """
         return _add_domain(self, showtype, domain, comment)
 
+    def add_domain_white(self, domain, comment=None) -> dict:
+        """
+        add domain to whitelist/blacklist
+        """
+        return _add_domain(self, "white", domain, comment)
+
+    def add_domain_black(self, domain, comment=None) -> dict:
+        """
+        add domain to whitelist/blacklist
+        """
+        return _add_domain(self, "black", domain, comment)
+
     def replace_domain(self, showtype, domain, comment=None) -> dict:
         """
         replace domain in whitelist/blacklist

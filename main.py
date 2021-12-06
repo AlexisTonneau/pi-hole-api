@@ -11,9 +11,9 @@ app = FastAPI()
 
 
 @app.get("/whitelist")
-def add_to_whitelist(domain: str):
+def add_to_whitelist(domain: str, comment: str = ''):
     if validators.domain(domain):
-        pihole.add_domain("white", domain, "")
+        pihole.add_domain_white(domain, comment)
         return 200, 'OK'
     raise HTTPException(status_code=400, detail="Could not validate domain name")
 
